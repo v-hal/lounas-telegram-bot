@@ -1,0 +1,10 @@
+{{name}}, {{address}}
+{{open}}
+
+{{#if meals}}
+  {{#if meals.fi}}
+    {{#each meals.fi}}
+      {{[0]}}
+    {{/each}}
+  {{/if}}
+{{/if}}
