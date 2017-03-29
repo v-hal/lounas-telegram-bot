@@ -12,6 +12,7 @@ class SpeechBot {
   constructor() {
     this.teleBot = new TeleBot({
       token: config.TELEGRAM_BOT_TOKEN,
+      port: config.PORT,
     });
     this.initialize();
     return this;
