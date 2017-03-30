@@ -7,4 +7,6 @@
       {{[0]}}
     {{/each}}
   {{/if}}
+  {{else}}
+    Valitettavasti ruokalistatietoja ei ole saatavilla.
 {{/if}}

@@ -1,10 +1,12 @@
-import * as cache from 'memory-cache';
+
 import * as fs from 'fs';
 import * as BPromise from 'bluebird';
 import * as R from 'ramda';
 import * as Handlebars from 'handlebars';
 import * as path from 'path';
-const cacheKey = 'views.all';
+import Cache from './cache';
+
+const cache = new Cache(120 * 1000); // 2 minutes
 const viewsDir = path.join(__dirname, '../views');
 
 class Views {
@@ -18,20 +20,18 @@ class Views {
   }
 
   static getViews(): BPromise<any> {
+    return cache.get(Views.readView, viewsDir);
+  }
+
+  static readView(viewDirectory: string) {
     const readDir = BPromise.promisify(fs.readdir);
     const readFile: (path: string, encoding: string) =>
       string = <(...all: any[]) => any>BPromise.promisify(fs.readFile);
-    const cachedViews: string = cache.get(cacheKey);
-    if (cachedViews) {
-      return BPromise.resolve(cachedViews);
-    }
-
     const fileNamesPromise = readDir(viewsDir);
     const filesPromise = fileNamesPromise.then(files =>
       BPromise.map(files, file =>
-        readFile(path.join(viewsDir, file), 'utf-8'))
+        readFile(path.join(viewDirectory, file), 'utf-8'))
     );
-
     return BPromise.join(fileNamesPromise, filesPromise)
       .then(([names, files]) =>
         R.zipObj(names.map(f => R.dropLast(1, f.split('.')).join('.')), files));
