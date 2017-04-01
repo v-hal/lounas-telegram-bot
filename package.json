@@ -4,7 +4,7 @@
   "description": "Lounas telegram bot",
   "main": "index.js",
   "scripts": {
-    "start": "node ./node_modules/.bin/ts-node ./index.ts",
+    "start": "node ./node_modules/.bin/ts-node ./index.ts --max-old-space-size=400",
     "watch": "npm run build:live",
     "build:live": "nodemon --exec ./node_modules/.bin/ts-node -- ./index.ts",
     "build": "webpack",
