@@ -3,6 +3,8 @@ A telegram bot for checking menus of student restaurants in the capita region of
 
 The bot uses [lounasaika.net](http://lounasaika.net/) JSON API ([GitHub](https://github.com/paav-o/lounasaika)).
 
+⚠️ The lounasaika.net API no longer exists and that's why the bot doesn't work anymore.
+
 ## Getting running
 1. Clone the repository
 2. Create yourself an `.env` file based on the `.env.sample` file example
